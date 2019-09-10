@@ -1,12 +1,17 @@
 #!/usr/bin/python3
 
+# Kunal Mukherjee
+# Slection Sort Visualizer
+# 9/9/19
+
+#import library
 import sys
 import time
 import numpy as np
 from tkinter import *
 from PIL import Image, ImageTk
 
-
+# MainWindow is the class that provide the canvas
 class MainWindow():
 
     def __init__(self, main, image, my_images):
@@ -22,8 +27,12 @@ class MainWindow():
         # set first image on canvas
         self.image_on_canvas = self.canvas.create_image(0,0, anchor = NW, image = image)
 
-        self.button = Button(main, text="Next Pic", command=self.onButton)
-        self.button.grid(row=image.width()+10, column=image.height()+10)
+        # set button for an image
+        self.button = Button(main, text="Next Picture", command=self.onButton)
+        self.button.grid(row=image.width() + 30, column=image.height())
+
+        self.button1 = Button(main, text="Restart", command=self.restartButton)
+        self.button1.grid(row=image.width() - 30, column=image.height())
 
     def runImageFilm(self):
 
@@ -32,24 +41,29 @@ class MainWindow():
 
         # return to first image
         if self.my_image_number == len(self.my_images):
-            self.my_image_number = 0
+            self.my_image_number = len(self.my_images) - 1
 
         # change image
         self.canvas.itemconfig(self.image_on_canvas, image = self.my_images[self.my_image_number])
 
     def onButton(self):
+		# Start the filmmade ofimages
     	self.runImageFilm()
 
     def onButton_click(self):
+    	# Method to invoke the button in software
     	self.button.invoke()
 
+    def restartButton(self):
+    	# check to see if end of frame then restart
+    	if self.my_image_number == (len(self.my_images) - 1):
+            self.my_image_number = 0
+
+#  Class to store the umsorted images
 class ImageStorage():
 
+	# list if temporary images
 	my_images = []
-
-	def __init__(self, image):
-		self.image = image
-		self.my_images.append(image)
 
 	def add_image(self, image):
 		self.my_images.append(image)
@@ -58,62 +72,88 @@ class ImageStorage():
 	def get_images(self):
 		return self.my_images
 
-
+# Creates am image from array
 def createImagefromArr(arr, imageArr):
 
-	arrTemp = imageArr
+	arrTemp = imageArr.copy()
 
 	for i in range(len(arr)):
 		arrTemp[i] = imageArr[arr[i]]
 
 	return ImageTk.PhotoImage(Image.fromarray(arrTemp))
 
+# Selection Sort
+def selectionSort(indexImgArr, imgStoragearr, originalImgarr):
+	
+	sortImgindexArr = []
+
+	# Traverse through all array elements 
+	for i in range(len(indexImgArr)): 
+	      
+	    # Find the minimum element in remaining  
+	    # unsorted array 
+	    min_idx = i 
+	    for j in range(i+1, len(indexImgArr)): 
+	        if indexImgArr[min_idx] > indexImgArr[j]: 
+	            min_idx = j 
+	              
+	    # Swap the found minimum element with  
+	    # the first element         
+	    indexImgArr[i], indexImgArr[min_idx] = indexImgArr[min_idx], indexImgArr[i]	    
+	    
+	    sortImgindexArr.append(indexImgArr.copy())
+
+	return sortImgindexArr    
+
+# the main driver program
 def main():
 
+	# try to open an image
 	try:
-		tatras = Image.open("example.jpg")
+		tatras = Image.open(sys.argv[1])
 
 	except IOError:
 		("Unable to load image")
 		sys.exit(1)
 
+	# intitilaze the Tkinter object
 	root = Tk()
-	imgArr = ImageStorage(ImageTk.PhotoImage(tatras))
+	root.title("Selection Sort Visualizer -- Kunal Mukherjee")
 
+	# creating an instance of ImageStorage
+	imgArr = ImageStorage()
+
+	# creating an array ofthe image
 	A = np.array(tatras)
-	A.setflags(write=1)
 
-	sortA = np.arange(len(A))
-	np.random.shuffle(sortA)	
+	# creating an image from the original array
+	# display the image
+	img = Image.fromarray(A)
+	img.show()
 
-	# Traverse through all array elements 
-	for i in range(len(sortA)): 
-	      
-	    # Find the minimum element in remaining  
-	    # unsorted array 
-	    min_idx = i 
-	    for j in range(i+1, len(sortA)): 
-	        if sortA[min_idx] > sortA[j]: 
-	            min_idx = j 
-	              
-	    # Swap the found minimum element with  
-	    # the first element         
-	    sortA[i], sortA[min_idx] = sortA[min_idx], sortA[i]	    
-	    
-	    imgArr.add_image(createImagefromArr(sortA, A))	    	
-	    # print(i)
+	# array of the index of the image array
+	indexA = np.arange(len(A))
+	# shuffle the image 
+	np.random.shuffle(indexA)	
 
-	# Driver code to test above 
-	print ("Sorted array") 
-	# for i in range(len(sortA)): 
-	#     print("%d" %sortA[i]),
+	# Selection Sort Algorithm
+	sortImgArr = selectionSort(indexA, imgArr, A)
+
+	# Store the image created from the temporary sorted image array
+	for i in range(len(sortImgArr)):
+		imgArr.add_image(createImagefromArr(sortImgArr[i], A))
+
+	# Debugging message
+	print ("Sorted array")
 	
+	# intitilize the main window
 	m = MainWindow(root, ImageTk.PhotoImage(tatras), imgArr.get_images())
-	while True:
-		m.onButton_click() 
-		time.sleep(2)
-		root.update()
 
+	while True:
+		#create a button click event every .2 sec
+		m.onButton_click() 
+		time.sleep(.05)
+		root.update()
 
 
 if __name__ == '__main__':
