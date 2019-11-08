@@ -103,7 +103,15 @@ def selectionSort(indexImgArr, imgStoragearr, originalImgarr):
 	    
 	    sortImgindexArr.append(indexImgArr.copy())
 
-	return sortImgindexArr    
+	return sortImgindexArr  
+
+def flipArray(A):
+	tempA = A.copy()
+
+	for i in range(len(A)):
+		tempA[i] = A[len(A) - i - 1]
+
+	return tempA  
 
 # the main driver program
 def main():
@@ -124,7 +132,7 @@ def main():
 	imgArr = ImageStorage()
 
 	# creating an array ofthe image
-	A = np.array(tatras)
+	A = np.array(tatras)	
 
 	# creating an image from the original array
 	# display the image
@@ -137,7 +145,7 @@ def main():
 	np.random.shuffle(indexA)	
 
 	# Selection Sort Algorithm
-	sortImgArr = selectionSort(indexA, imgArr, A)
+	sortImgArr = selectionSort(indexA, imgArr, A)	
 
 	# Store the image created from the temporary sorted image array
 	for i in range(len(sortImgArr)):
