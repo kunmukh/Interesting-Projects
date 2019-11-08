@@ -1,2 +1,2 @@
 # Project 1: Selection Sort Visualizer
-![](demoSortVisualizer.gif)
+![Selection Sort](demoSortVisualizer.gif)
