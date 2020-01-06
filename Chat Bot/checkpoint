@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Volumes/Epimetheus/ML/Chat Bot/chatbot.tflearn"
+all_model_checkpoint_paths: "/Volumes/Epimetheus/ML/Chat Bot/chatbot.tflearn"
