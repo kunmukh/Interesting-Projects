@@ -15,11 +15,11 @@
 ![Texas](img/Texas/03_12_20.png)
 
 # US 
-![US](img/US/03_12_20.png)
+![US](img/US/03_13_20.png)
 
 # India
-![India](img/India/03_12_20.png)
+![India](img/India/03_13_20.png)
 
 # World
-![World](img/World/03_12_20.png)
+![World](img/World/03_13_20.png)
 
