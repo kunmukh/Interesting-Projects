@@ -18,7 +18,7 @@
 ![US](img/US/03_12_20.png)
 
 # India
-![India](img/india/03_12_20.png)
+![India](img/India/03_12_20.png)
 
 # World
 ![World](img/World/03_12_20.png)
