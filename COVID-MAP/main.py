@@ -22,6 +22,7 @@ csse_recovered = "COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_ser
 def updateCOVIDdataset():
     os.chdir("COVID-19")
     os.system("git pull")
+    os.chdir("..")
 
 
 # load the dataset of the COVID
@@ -75,6 +76,16 @@ def getLatitudeandLongitude(data):
     return lat, long
 
 
+# a dictionary that contains Latitude/Longitude lower/upper right corner
+def getDictPlaceLatLongCol():
+    Lat_long_DB = dict({'World': [-90, 90, -180, 180, '#fff30a'],
+                        'Texas': [25, 38, -110, -90, '#44ff00'],
+                        'US': [20, 50, -130, -60, '#00ffea'],
+                        'India': [6, 40, 68, 100, '#ff9500']})
+
+    return Lat_long_DB
+
+
 def drawMapbackground(llcrnrlat_, urcrnrlat_, llcrnrlon_, urcrnrlon_):
 
     mapB = Basemap(projection='mill',
@@ -90,16 +101,6 @@ def drawMapbackground(llcrnrlat_, urcrnrlat_, llcrnrlon_, urcrnrlon_):
     mapB.drawmapboundary(fill_color='#FFFFFF')
 
     return mapB
-
-
-# a dictionary that contains Latitude/Longitude lower/upper right corner
-def getDictPlaceLatLongCol():
-    Lat_long_DB = dict({'World': [-90, 90, -180, 180, '#fff30a'],
-                        'Texas': [25, 38, -110, -90, '#44ff00'],
-                        'US': [20, 50, -130, -60, '#00ffea'],
-                        'India': [6, 40, 68, 100, '#ff9500']})
-
-    return Lat_long_DB
 
 
 # draw the map based on the latitude and longitude provided
