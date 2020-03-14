@@ -1,14 +1,15 @@
-# Texas
-![Texas](gif/Texas.gif)
+# CORONA VIRUS SPREAD MAP
+## World
+![World](gif/World.gif)
 
 # US 
 ![US](gif/US.gif)
 
+# Texas
+![Texas](gif/Texas.gif)
+
 # India
 ![India](gif/India.gif)
-
-# World
-![World](gif/World.gif)
 
 # Current Status
 # Texas
