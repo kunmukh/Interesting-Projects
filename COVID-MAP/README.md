@@ -12,7 +12,7 @@
 
 # Current Status
 # Texas
-![Texas](img/Texas/03_12_20.png)
+![Texas](img/Texas/03_13_20.png)
 
 # US 
 ![US](img/US/03_13_20.png)
