@@ -107,7 +107,8 @@ def drawMapbackground(llcrnrlat_, urcrnrlat_, llcrnrlon_, urcrnrlon_):
 
 
 # draw the map based on the latitude and longitude provided
-def drawMap(latitude, longitide, caseStatus, markerType, date, closeFlag, totalCase):
+def drawMap(latitude, longitide, markerType, date, closeFlag,
+            totalCaseConfim, totalCaseDeath, totalCaseRecover):
 
     for k in getDictPlaceLatLongCol().keys():
         fig = plt.figure(figsize=(10, 10), dpi=100)
@@ -128,8 +129,9 @@ def drawMap(latitude, longitide, caseStatus, markerType, date, closeFlag, totalC
         plt.text(0, 0,
                  'Dataset: 2019 Novel Coronavirus COVID-19 (2019-nCoV)' +
                  ' Data Repository by Johns Hopkins CSSE', color="yellow")
-        plt.title(k + caseStatus + " " + date + " People: "+str(totalCase), color='red')
-
+        plt.title(k + " DATE: " + date + "| Confirm: " + str(totalCaseConfim) +
+                  "| Death: " + str(totalCaseDeath) + "| Recovered: " + str(totalCaseRecover),
+                  color='red')
 
         if closeFlag:
             plt.savefig('img/' + k + "/" + date + '.png', dpi=100)
@@ -159,7 +161,7 @@ def makeVideo(filedir, outfile):
     size = [0, 0]
 
     # HACK for README
-    img = cv2.imread(sorted(glob.glob(filedir+'/*.png'))[-1])
+    img = cv2.imread(sorted(glob.glob(filedir+'/*.png'))[-2])
     cv2.imwrite(filedir+'/'+outfile+'Latest.png', img)
 
     # open the file and read the images
@@ -217,20 +219,28 @@ def main():
     # get the latitude and Longitude
     latCaseConfirmed, longCaseConfirmed = getLatitudeandLongitude(covid_confirmed)
 
-    drawMap(latCaseConfirmed, longCaseConfirmed, " : Case Confirmed", 'ro',
+    drawMap(latCaseConfirmed, longCaseConfirmed, 'ro',
             getDate(str(loadDataset(csse_confirmed).columns.tolist()[-1])), False,
-            covid_confirmed.iloc[:, -1].sum())
+            covid_confirmed.iloc[:, -1].sum(),
+            covid_death.iloc[:, -1].sum(),
+            covid_recovered.iloc[:, -1].sum())
 
     # get the data in terms of date
     covid_confirmed_list = getProcessedDataperDate(loadDataset(csse_confirmed))
+    covid_death_list = getProcessedDataperDate(loadDataset(csse_death))
+    covid_recovered_list = getProcessedDataperDate(loadDataset(csse_recovered))
 
     # create the images
-    for date in covid_confirmed_list:
+    for dateConfirm, dateDeath, dateRecover in zip(covid_confirmed_list,
+                                                   covid_death_list,
+                                                   covid_recovered_list):
         # load the dataset
-        lat, long = getLatitudeandLongitude(date)
-        drawMap(lat, long, " :Case Confirmed", 'ro',
-                getDate(str(date.columns.tolist()[-1])), True,
-                date.iloc[:, -1].sum())
+        lat, long = getLatitudeandLongitude(dateConfirm)
+        drawMap(lat, long, 'ro',
+                getDate(str(dateConfirm.columns.tolist()[-1])), True,
+                dateConfirm.iloc[:, -1].sum(),
+                dateDeath.iloc[:, -1].sum(),
+                dateRecover.iloc[:, -1].sum())
 
     makeVideoandGif()
 
