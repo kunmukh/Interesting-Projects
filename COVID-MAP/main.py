@@ -98,23 +98,26 @@ def drawMapbackground(llcrnrlat_, urcrnrlat_, llcrnrlon_, urcrnrlon_):
     mapB.drawcoastlines()
     mapB.drawcountries()
     mapB.drawstates()
-    mapB.drawmapboundary(fill_color='#FFFFFF')
+    '''mapB.drawmapboundary(fill_color='#FFFFFF')'''
+
+    mapB.bluemarble()
+
 
     return mapB
 
 
 # draw the map based on the latitude and longitude provided
-def drawMap(latitude, longitide, caseStatus, markerType, date, closeFlag):
+def drawMap(latitude, longitide, caseStatus, markerType, date, closeFlag, totalCase):
 
     for k in getDictPlaceLatLongCol().keys():
-        plt.figure(figsize=(10, 10), dpi=100)
+        fig = plt.figure(figsize=(10, 10), dpi=100)
 
         #get the latitude
         lat_long = getDictPlaceLatLongCol()[k]
 
         # Draw the map
         m = drawMapbackground(lat_long[0], lat_long[1], lat_long[2], lat_long[3])
-        m.fillcontinents(color=lat_long[4], lake_color='#FFFFFF')
+        # m.fillcontinents(color=lat_long[4], lake_color='#FFFFFF')
 
         # Draw the data points
         for lo, la in zip(longitide, latitude):
@@ -122,12 +125,14 @@ def drawMap(latitude, longitide, caseStatus, markerType, date, closeFlag):
             m.plot(lo, la, markerType)
 
         # Add details
-        plt.text(0, 0, 'Dataset: 2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE')
-        plt.title(k + caseStatus + " " + date)
+        plt.text(0, 0,
+                 'Dataset: 2019 Novel Coronavirus COVID-19 (2019-nCoV)' +
+                 ' Data Repository by Johns Hopkins CSSE', color="yellow")
+        plt.title(k + caseStatus + " " + date + " People: "+str(totalCase), color='red')
 
-        plt.savefig('img/'+ k + "/" + date +'.png', dpi=100)
 
         if closeFlag:
+            plt.savefig('img/' + k + "/" + date + '.png', dpi=100)
             plt.close()
 
 
@@ -213,7 +218,8 @@ def main():
     latCaseConfirmed, longCaseConfirmed = getLatitudeandLongitude(covid_confirmed)
 
     drawMap(latCaseConfirmed, longCaseConfirmed, " : Case Confirmed", 'ro',
-            getDate(str(loadDataset(csse_confirmed).columns.tolist()[-1])), False)
+            getDate(str(loadDataset(csse_confirmed).columns.tolist()[-1])), False,
+            covid_confirmed.iloc[:, -1].sum())
 
     # get the data in terms of date
     covid_confirmed_list = getProcessedDataperDate(loadDataset(csse_confirmed))
@@ -223,7 +229,8 @@ def main():
         # load the dataset
         lat, long = getLatitudeandLongitude(date)
         drawMap(lat, long, " :Case Confirmed", 'ro',
-                getDate(str(date.columns.tolist()[-1])), True)
+                getDate(str(date.columns.tolist()[-1])), True,
+                date.iloc[:, -1].sum())
 
     makeVideoandGif()
 
