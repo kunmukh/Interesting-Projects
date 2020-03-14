@@ -12,14 +12,14 @@
 
 # Current Status
 # Texas
-![Texas](img/Texas/03_12_20.gif)
+![Texas](img/Texas/03_12_20.png)
 
 # US 
-![US](img/US/03_12_20.gif)
+![US](img/US/03_12_20.png)
 
 # India
-![India](img/india/03_12_20.gif)
+![India](img/india/03_12_20.png)
 
 # World
-![World](img/World/03_12_20.gif)
+![World](img/World/03_12_20.png)
 
