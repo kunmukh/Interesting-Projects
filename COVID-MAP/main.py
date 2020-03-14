@@ -20,9 +20,8 @@ csse_recovered = "COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_ser
 
 # function that updates the COVID dataset
 def updateCOVIDdataset():
-    os.system("cd COVID-19")
+    os.chdir("COVID-19")
     os.system("git pull")
-    os.system("cd ..")
 
 
 # load the dataset of the COVID
