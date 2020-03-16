@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Kunal Mukherjee
 # 3/15/20
 # CNBC TV 18 Live Streamer
