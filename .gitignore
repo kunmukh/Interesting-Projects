@@ -2,5 +2,5 @@ COVID-MAP/COVID-19/
 .DS_Store
 .idea
 *.m3u8
-*.iml
+*.xml
 *.pickle
