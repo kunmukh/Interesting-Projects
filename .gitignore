@@ -4,3 +4,7 @@ COVID-MAP/COVID-19/
 *.m3u8
 *.xml
 *.pickle
+*.iml
+*.data
+*.dat
+*.txt
