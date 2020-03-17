@@ -106,7 +106,7 @@ def main():
 
     # part 4: use streamlink to run the stream
     playVideo(video_url)'''
-    playVideo("https://cnbctv18-lh.akamaihd.net/i/cnbctv18_1@174868/index_5_av-p.m3u8")
+    playVideo("https://cnbctv18-lh.akamaihd.net/i/cnbctv18_1@174868/index_2_av-p.m3u8")
 
 
 if __name__ == '__main__':
