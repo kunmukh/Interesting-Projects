@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 # Kunal Mukherjee
 # 3/15/20
 # CNBC TV 18 Live Streamer
@@ -93,7 +93,7 @@ def playVideo(streamUrl):
 
 
 def main():
-    # part 1: web-scrape the website to get the video source
+    '''# part 1: web-scrape the website to get the video source
     m3u8_source = getVideoSourceHTML("https://www.cnbctv18.com/live-tv/")
 
     # part 2: parse the m3u8 url from the html
@@ -105,7 +105,8 @@ def main():
     print("Final Video URL: ", video_url)
 
     # part 4: use streamlink to run the stream
-    playVideo(video_url)
+    playVideo(video_url)'''
+    playVideo("https://cnbctv18-lh.akamaihd.net/i/cnbctv18_1@174868/index_5_av-p.m3u8")
 
 
 if __name__ == '__main__':
