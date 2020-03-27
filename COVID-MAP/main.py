@@ -4,6 +4,7 @@
 # Dataset: 2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
 # https://github.com/CSSEGISandData/COVID-19
 
+
 # import libraries
 import os
 import pandas as pd
@@ -11,6 +12,8 @@ from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
 import cv2
 import glob
+from datetime import datetime, timedelta
+
 
 # file path to different dataset
 csse_confirmed = "COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
@@ -111,7 +114,7 @@ def drawMap(latitude, longitide, markerType, date, closeFlag,
             _totalCaseConfim, _totalCaseDeath, _totalCaseRecover):
 
     for k in getDictPlaceLatLongCol().keys():
-        plt.figure(figsize=(10, 10), dpi=100)
+        fig = plt.figure(figsize=(10, 10), dpi=100)
 
         #get the latitude
         lat_long = getDictPlaceLatLongCol()[k]
@@ -148,6 +151,9 @@ def drawMap(latitude, longitide, markerType, date, closeFlag,
         plt.title(k + " DATE: " + date + "| Confirm: " + str(totalCaseConfim) +
                   "| Death: " + str(totalCaseDeath) + "| Recovered: " + str(totalCaseRecover),
                   color='red')
+        plt.xlabel('Kunal Mukherjee| https://github.com/kunmukh', color='blue')
+
+
 
         if closeFlag:
             plt.savefig('img/' + k + "/" + date + '.png', dpi=100)
@@ -157,7 +163,7 @@ def drawMap(latitude, longitide, markerType, date, closeFlag,
 # format the date in correct order
 def getDate(date):
 
-    format_date = date.replace("/", "_")
+    format_date = date.replace("/", "_").replace("-", "_")
     month, date, year = format_date.split("_")
 
     if len(month) < 2:
@@ -222,29 +228,12 @@ def main():
     # update the dataset
     updateCOVIDdataset()
 
-    # load the dataset
-    covid_confirmed = getProcessedData(loadDataset(csse_confirmed))
-    covid_death = getProcessedData(loadDataset(csse_death))
-    covid_recovered = getProcessedData(loadDataset(csse_recovered))
-
-    # print the dataset
-    # print(covid_confirmed)
-    # print(covid_death)
-    # print(covid_recovered)
-
-    # get the latitude and Longitude
-    latCaseConfirmed, longCaseConfirmed = getLatitudeandLongitude(covid_confirmed)
-
-    drawMap(latCaseConfirmed, longCaseConfirmed, 'ro',
-            getDate(str(loadDataset(csse_confirmed).columns.tolist()[-1])), False,
-            covid_confirmed, covid_death, covid_recovered)
-
     # get the data in terms of date
     covid_confirmed_list = getProcessedDataperDate(loadDataset(csse_confirmed))
     covid_death_list = getProcessedDataperDate(loadDataset(csse_death))
     covid_recovered_list = getProcessedDataperDate(loadDataset(csse_recovered))
 
-    # create the images
+    # create the images from the time series
     for dateConfirm, dateDeath, dateRecover in zip(covid_confirmed_list,
                                                    covid_death_list,
                                                    covid_recovered_list):
@@ -254,6 +243,58 @@ def main():
                 getDate(str(dateConfirm.columns.tolist()[-1])), True,
                 dateConfirm, dateDeath, dateRecover)
 
+    # COVID Dataset changed the data location and format
+    startDateDaily = datetime(2020, 3, 23)
+    stopDateDaily = datetime.today() + timedelta(days=1)
+
+    while stopDateDaily.strftime('%m-%d-%Y') != startDateDaily.strftime('%m-%d-%Y'):
+        # load the data set
+        data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
+                           + startDateDaily.strftime('%m-%d-%Y') + ".csv")
+        # change column name
+        data = data.rename(columns={'Long_': 'Long'})
+
+        # print(data)
+
+        # get the required data
+        data_confirmed = data.loc[data['Confirmed'] != 0]
+        lat = data_confirmed['Lat']
+        long = data_confirmed['Long']
+        dateConfirm = data_confirmed[['Lat', 'Long', 'Confirmed']]
+        dateDeath = data_confirmed[['Lat', 'Long', 'Deaths']]
+        dateRecover = data_confirmed[['Lat', 'Long', 'Recovered']]
+
+        # update the map from daily update
+        drawMap(lat, long, 'r.',
+                getDate(data['Last_Update'].iloc[1][:10]), True,
+                dateConfirm, dateDeath, dateRecover)
+
+        # update date
+        startDateDaily += timedelta(days=1)
+
+    # Draw the latest map
+    # load the data set
+    data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
+                       + datetime.today().strftime('%m-%d-%Y') + ".csv")
+    # change column name
+    data = data.rename(columns={'Long_': 'Long'})
+
+    # print(data)
+
+    # get the required data
+    data_confirmed = data.loc[data['Confirmed'] != 0]
+    lat = data_confirmed['Lat']
+    long = data_confirmed['Long']
+    dateConfirm = data_confirmed[['Lat', 'Long', 'Confirmed']]
+    dateDeath = data_confirmed[['Lat', 'Long', 'Deaths']]
+    dateRecover = data_confirmed[['Lat', 'Long', 'Recovered']]
+
+    # update the map
+    drawMap(lat, long, 'r.',
+            getDate(data['Last_Update'].iloc[1][:10]), False,
+            dateConfirm, dateDeath, dateRecover)
+
+    # make the gif and the map
     makeVideoandGif()
 
     plt.show()
