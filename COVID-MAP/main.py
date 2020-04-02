@@ -164,7 +164,10 @@ def drawMap(latitude, longitide, markerType, date, closeFlag,
 def getDate(date):
 
     format_date = date.replace("/", "_").replace("-", "_")
-    month, date, year = format_date.split("_")
+    if "-" not in date:
+        month, date, year = format_date.split("_")
+    else:
+        year, month, date = format_date.split("_")
 
     if len(month) < 2:
         month = '0' + month
@@ -228,7 +231,7 @@ def main():
     # update the dataset
     updateCOVIDdataset()
 
-    # get the data in terms of date
+    '''# get the data in terms of date
     covid_confirmed_list = getProcessedDataperDate(loadDataset(csse_confirmed))
     covid_death_list = getProcessedDataperDate(loadDataset(csse_death))
     covid_recovered_list = getProcessedDataperDate(loadDataset(csse_recovered))
@@ -241,9 +244,9 @@ def main():
         lat, long = getLatitudeandLongitude(dateConfirm)
         drawMap(lat, long, 'ro',
                 getDate(str(dateConfirm.columns.tolist()[-1])), True,
-                dateConfirm, dateDeath, dateRecover)
+                dateConfirm, dateDeath, dateRecover)'''
 
-    # COVID Dataset changed the data location and format
+    '''# COVID Dataset changed the data location and format
     startDateDaily = datetime(2020, 3, 23)
     stopDateDaily = datetime.today() + timedelta(days=1)
 
@@ -270,9 +273,9 @@ def main():
                 dateConfirm, dateDeath, dateRecover)
 
         # update date
-        startDateDaily += timedelta(days=1)
+        startDateDaily += timedelta(days=1)'''
 
-    # Draw the latest map
+    '''# Draw the latest map
     # load the data set
     data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
                        + datetime.today().strftime('%m-%d-%Y') + ".csv")
@@ -292,7 +295,7 @@ def main():
     # update the map
     drawMap(lat, long, 'r.',
             getDate(data['Last_Update'].iloc[1][:10]), False,
-            dateConfirm, dateDeath, dateRecover)
+            dateConfirm, dateDeath, dateRecover)'''
 
     # make the gif and the map
     makeVideoandGif()
