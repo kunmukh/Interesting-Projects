@@ -275,14 +275,12 @@ def main():
         # update date
         startDateDaily += timedelta(days=1)'''
 
-    '''# Draw the latest map
+    # Draw the latest map
     # load the data set
     data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
                        + datetime.today().strftime('%m-%d-%Y') + ".csv")
     # change column name
     data = data.rename(columns={'Long_': 'Long'})
-
-    # print(data)
 
     # get the required data
     data_confirmed = data.loc[data['Confirmed'] != 0]
@@ -295,7 +293,10 @@ def main():
     # update the map
     drawMap(lat, long, 'r.',
             getDate(data['Last_Update'].iloc[1][:10]), False,
-            dateConfirm, dateDeath, dateRecover)'''
+            dateConfirm, dateDeath, dateRecover)
+    drawMap(lat, long, 'r.',
+            getDate(data['Last_Update'].iloc[1][:10]), True,
+            dateConfirm, dateDeath, dateRecover)
 
     # make the gif and the map
     makeVideoandGif()
