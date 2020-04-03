@@ -28,6 +28,14 @@ def updateCOVIDdataset():
     os.chdir("..")
 
 
+# function to push update
+def pushCommit():
+    os.system("git status")
+    os.system("git add img/* Video/* gif/* main.py")
+    os.system("git commit -m \"img, Video, gif updated with current data\"")
+    os.system("git push")
+
+
 # load the dataset of the COVID
 # from the file path
 def loadDataset(filename):
@@ -300,6 +308,9 @@ def main():
 
     # make the gif and the map
     makeVideoandGif()
+
+    # push the latest img, video, gif with current data
+    pushCommit()
 
     plt.show()
 
