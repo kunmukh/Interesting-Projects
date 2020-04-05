@@ -285,8 +285,9 @@ def main():
 
     # Draw the latest map
     # load the data set
+    today = datetime.today() - timedelta(days=1)
     data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
-                       + datetime.today().strftime('%m-%d-%Y') + ".csv")
+                       + today.strftime('%m-%d-%Y') + ".csv")
     # change column name
     data = data.rename(columns={'Long_': 'Long'})
 
