@@ -255,7 +255,8 @@ def main():
                 dateConfirm, dateDeath, dateRecover)'''
 
     # COVID Dataset changed the data location and format
-    startDateDaily = datetime(2020, 3, 23)
+    # start date changed 3/23/20-> 4/15/20
+    startDateDaily = datetime(2020, 4, 15)
     stopDateDaily = datetime.today() + timedelta(days=1)
 
     while stopDateDaily.strftime('%m-%d-%Y') != startDateDaily.strftime('%m-%d-%Y'):
