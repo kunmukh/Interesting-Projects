@@ -254,7 +254,7 @@ def main():
                 getDate(str(dateConfirm.columns.tolist()[-1])), True,
                 dateConfirm, dateDeath, dateRecover)'''
 
-    '''# COVID Dataset changed the data location and format
+    # COVID Dataset changed the data location and format
     startDateDaily = datetime(2020, 3, 23)
     stopDateDaily = datetime.today() + timedelta(days=1)
 
@@ -281,9 +281,9 @@ def main():
                 dateConfirm, dateDeath, dateRecover)
 
         # update date
-        startDateDaily += timedelta(days=1)'''
+        startDateDaily += timedelta(days=1)
 
-    # Draw the latest map
+    '''# Draw the latest map
     # load the data set
     today = datetime.today() - timedelta(days=1)
     data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
@@ -305,7 +305,7 @@ def main():
             dateConfirm, dateDeath, dateRecover)
     drawMap(lat, long, 'r.',
             getDate(data['Last_Update'].iloc[1][:10]), True,
-            dateConfirm, dateDeath, dateRecover)
+            dateConfirm, dateDeath, dateRecover)'''
 
     # make the gif and the map
     makeVideoandGif()
