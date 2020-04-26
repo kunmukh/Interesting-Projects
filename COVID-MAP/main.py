@@ -19,6 +19,7 @@ from datetime import datetime, timedelta
 csse_confirmed = "COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 csse_death = "COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
 csse_recovered = "COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
+csse_daily = "COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
 
 
 # function that updates the COVID dataset
@@ -173,8 +174,7 @@ def drawTodayMap():
     # Draw the latest map
     # load the data set
     today = datetime.today() - timedelta(days=1)
-    data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
-                       + today.strftime('%m-%d-%Y') + ".csv")
+    data = loadDataset(csse_daily + today.strftime('%m-%d-%Y') + ".csv")
     # change column name
     data = data.rename(columns={'Long_': 'Long'})
 
@@ -190,18 +190,30 @@ def drawTodayMap():
     drawMap(lat, long, 'r.',
             getDate(data['Last_Update'].iloc[1][:10]), False,
             dateConfirm, dateDeath, dateRecover)
-    drawMap(lat, long, 'r.',
-            getDate(data['Last_Update'].iloc[1][:10]), True,
-            dateConfirm, dateDeath, dateRecover)
 
 
 # draw the maps from the date given till today
 def drawMapFromDate(startDateDaily, stopDateDaily):
+    # CSSE Datset changed
+    '''# get the data in terms of date
+    covid_confirmed_list = getProcessedDataperDate(loadDataset(csse_confirmed))
+    covid_death_list = getProcessedDataperDate(loadDataset(csse_death))
+    covid_recovered_list = getProcessedDataperDate(loadDataset(csse_recovered))
+
+    # create the images from the time series
+    for dateConfirm, dateDeath, dateRecover in zip(covid_confirmed_list,
+                                                   covid_death_list,
+                                                   covid_recovered_list):
+        # load the dataset
+        lat, long = getLatitudeandLongitude(dateConfirm)
+        drawMap(lat, long, 'ro',
+                getDate(str(dateConfirm.columns.tolist()[-1])), True,
+                dateConfirm, dateDeath, dateRecover)'''
+
 
     while stopDateDaily.strftime('%m-%d-%Y') != startDateDaily.strftime('%m-%d-%Y'):
         # load the data set
-        data = loadDataset("COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/"
-                           + startDateDaily.strftime('%m-%d-%Y') + ".csv")
+        data = loadDataset(csse_daily + startDateDaily.strftime('%m-%d-%Y') + ".csv")
         # change column name
         data = data.rename(columns={'Long_': 'Long'})
 
@@ -222,6 +234,30 @@ def drawMapFromDate(startDateDaily, stopDateDaily):
 
         # update date
         startDateDaily += timedelta(days=1)
+
+
+# plot the latest map
+def showLatestMap():
+    # Draw the latest map
+    # load the data set
+    today = datetime.today() - timedelta(days=1)
+    data = loadDataset(csse_daily + today.strftime('%m-%d-%Y') + ".csv")
+    # change column name
+    data = data.rename(columns={'Long_': 'Long'})
+
+    # get the required data
+    data_confirmed = data.loc[data['Confirmed'] != 0]
+    lat = data_confirmed['Lat']
+    long = data_confirmed['Long']
+    dateConfirm = data_confirmed[['Lat', 'Long', 'Confirmed']]
+    dateDeath = data_confirmed[['Lat', 'Long', 'Deaths']]
+    dateRecover = data_confirmed[['Lat', 'Long', 'Recovered']]
+
+    # update the map
+    drawMap(lat, long, 'r.',
+            getDate(data['Last_Update'].iloc[1][:10]), False,
+            dateConfirm, dateDeath, dateRecover)
+
 
 
 # format the date in correct order
@@ -295,29 +331,17 @@ def main():
     # update the dataset
     updateCOVIDdataset()
 
-    '''# get the data in terms of date
-    covid_confirmed_list = getProcessedDataperDate(loadDataset(csse_confirmed))
-    covid_death_list = getProcessedDataperDate(loadDataset(csse_death))
-    covid_recovered_list = getProcessedDataperDate(loadDataset(csse_recovered))
-
-    # create the images from the time series
-    for dateConfirm, dateDeath, dateRecover in zip(covid_confirmed_list,
-                                                   covid_death_list,
-                                                   covid_recovered_list):
-        # load the dataset
-        lat, long = getLatitudeandLongitude(dateConfirm)
-        drawMap(lat, long, 'ro',
-                getDate(str(dateConfirm.columns.tolist()[-1])), True,
-                dateConfirm, dateDeath, dateRecover)'''
-
     # COVID Dataset changed the data location and format
     # starting date changed to 3/23/20-> 4/15/20->4/25/20
-    # startDateDaily = datetime(2020, 4, 15)
-    #stopDateDaily = datetime.today() + timedelta(days=2)
-    #drawMapFromDate(startDateDaily, stopDateDaily)
+    startDateDaily = datetime(2020, 4, 15)
+    stopDateDaily = datetime.today() + timedelta(days=2)
+    drawMapFromDate(startDateDaily, stopDateDaily)
 
-    # uncomment if you want to see today's date
+    # uncomment if you want to create and save today's date
     # drawTodayMap()
+
+    # show the latest map
+    showLatestMap()
 
     # make the gif and the map
     makeVideoandGif()
