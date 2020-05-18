@@ -329,13 +329,13 @@ def makeVideoandGif():
 
 def main():
     # update the dataset
-    updateCOVIDdataset()
+    '''updateCOVIDdataset()
 
     # COVID Dataset changed the data location and format
-    # starting date changed to 3/23/20-> 4/15/20->4/25/20
-    startDateDaily = datetime(2020, 4, 15)
-    stopDateDaily = datetime.today() + timedelta(days=2)
-    drawMapFromDate(startDateDaily, stopDateDaily)
+    # starting date changed to 3/23/20-> 4/15/20->4/25/20->5/18/20
+    startDateDaily = datetime(2020, 4, 25)
+    stopDateDaily = datetime.today() - timedelta(days=2)
+    drawMapFromDate(startDateDaily, stopDateDaily)'''
 
     # uncomment if you want to create and save today's date
     # drawTodayMap()
