@@ -259,7 +259,6 @@ def showLatestMap():
             dateConfirm, dateDeath, dateRecover)
 
 
-
 # format the date in correct order
 def getDate(date):
 
@@ -328,28 +327,28 @@ def makeVideoandGif():
 
 
 def main():
-    # update the dataset
-    '''updateCOVIDdataset()
+    '''# update the dataset
+    updateCOVIDdataset()
 
     # COVID Dataset changed the data location and format
-    # starting date changed to 3/23/20-> 4/15/20->4/25/20->5/18/20
-    startDateDaily = datetime(2020, 4, 25)
+    # starting date changed to 3/23/20-> 4/15/20->4/25/20->5/18/20->6/14/20
+    startDateDaily = datetime(2020, 5, 18)
     stopDateDaily = datetime.today() - timedelta(days=2)
-    drawMapFromDate(startDateDaily, stopDateDaily)'''
+    drawMapFromDate(startDateDaily, stopDateDaily)
 
-    # uncomment if you want to create and save today's date
+    # uncomment if you want to create and save today's COVID MAP
     # drawTodayMap()
 
     # show the latest map
     showLatestMap()
 
     # make the gif and the map
-    makeVideoandGif()
+    makeVideoandGif()'''
 
     # push the latest img, video, gif with current data
     pushCommit()
 
-    plt.show()
+    '''plt.show()'''
 
 
 if __name__ == '__main__':
