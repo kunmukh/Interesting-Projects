@@ -1,2 +1,2 @@
 # Selection Sort Visualizer
-![Selection Sort](gif/demoSortVisualizer.gif)
+![Selection Sort](../gif/demoSortVisualizer.gif)
