@@ -29,4 +29,9 @@
 # Project 5: IMDB Movie Review Classifier
 ![IMDB Movie Review Classifier](gif/IMDB_Movie_Review_Predictor.gif)
 
+# Project 6: CNBC Live TV Streamer
+## Stream live tv with just clicking the application and without any ad
+![Web Scrapping Output](web_scrapping_output.png)
+![Selection Sort](../gif/CNBC-LiveTV.gif)
+
 
