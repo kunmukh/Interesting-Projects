@@ -8,6 +8,7 @@ import urllib.request
 import os
 import re
 from selenium import webdriver, common
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 # from the url get the video element html
@@ -18,7 +19,7 @@ def getVideoSourceHTML(urlName):
     options.add_argument('headless')
 
     # adding the headless option to selenium webdriver
-    chromeDriver = webdriver.Chrome(chrome_options=options)
+    chromeDriver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
 
     # use the chrome driver to open the url
     chromeDriver.get(urlName)
