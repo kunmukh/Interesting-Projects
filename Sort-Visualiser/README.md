@@ -1,1 +1,2 @@
-![](https://github.com/kunmukh/Interesting-Projects/blob/master/demoSortVisualizer.gif)
+# Selection Sort Visualizer
+![Selection Sort](gif/demoSortVisualizer.gif)
