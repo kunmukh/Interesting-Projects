@@ -327,7 +327,7 @@ def makeVideoandGif():
 
 
 def main():
-    '''# update the dataset
+    # update the dataset
     updateCOVIDdataset()
 
     # COVID Dataset changed the data location and format
@@ -343,12 +343,12 @@ def main():
     showLatestMap()
 
     # make the gif and the map
-    makeVideoandGif()'''
+    makeVideoandGif()
 
     # push the latest img, video, gif with current data
     pushCommit()
 
-    '''plt.show()'''
+    plt.show()
 
 
 if __name__ == '__main__':
