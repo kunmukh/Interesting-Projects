@@ -1,12 +1,12 @@
 # Linux Cuckoo Client Set Up Instructions
 
-###  1.Install Ubuntu 18.04
-* name: cuckooC1	
-* username: cuckooc1
-* password: cuckooc
-* automatic log in
+### 1.Install Ubuntu 18.04
+      * name: cuckooC1	
+      * username: cuckooc1
+      * password: cuckooc
+      * automatic log in
 
-### 2.fix DNS: 
+### 2. Fix DNS: 
 * edit /etc/resolv.conf and add line `nameserver 8.8.8.8`
 * run `/etc/init.d/networking restart`
 * `sudo apt-get update`
@@ -19,15 +19,16 @@
 
 ### 3.Change network adapter: Host-only - vboxnet0
 
-###  4.give static IP: 192.168.56.101: https://graspingtech.com/ubuntu-server-16-04-static-ip/
-`auto enp0s3
+###  4. Give static IP: 192.168.56.101: https://graspingtech.com/ubuntu-server-16-04-static-ip/
+```auto enp0s3
 iface enp0s3 inet static
 address 192.168.56.101
 netmask 255.255.255.0
 gateway 192.168.56.1
-dns-nameservers 1.1.1.1 1.0.0.1`
+dns-nameservers 1.1.1.1 1.0.0.1
+```
 
-###  5.patch systemtap for Linux: https://askubuntu.com/questions/1173904/is-systemtap-broken-on-5-0-0-kernel
+### 5. Patch systemtap for Linux: https://askubuntu.com/questions/1173904/is-systemtap-broken-on-5-0-0-kernel
 ``` shell
 $ sudo apt remove systemtap
 $ sudo apt install g++ make git libelf-dev libdw-dev
@@ -41,7 +42,7 @@ $ sudo stap -e 'probe begin { printf("Hello, World!\n"); exit() }'
 [sudo] password for knudfl: 
 Hello, World!
 ```
-###  6.install cuckoo agent.py (http://docs.cuckoosandbox.org/en/2.0.7/installation/guest/linux/)
+### 6. Install cuckoo agent.py (http://docs.cuckoosandbox.org/en/2.0.7/installation/guest/linux/)
 * Running of agent automatically do this **INSTEAD**
 ``` shell
 $ sudo crontab -e
@@ -56,18 +57,18 @@ $ sudo crontab -e
 {"message": "Cuckoo Agent!", "version": "0.10", "features": ["execpy", "pinning", "logs", "largefile", "unicodepath"]}
 ```
 
-###  7.open two terminal and run `python agent.stdout` and  `agent.stderr` for debugging info
+###  7. Open two terminal and run `python agent.stdout` and  `agent.stderr` for debugging info
 
-###  8.remove password: http://jonmoore.duckdns.org/index.php/linux-articles/58-remove-sudo-password-prompt
+###  8. Remove password: http://jonmoore.duckdns.org/index.php/linux-articles/58-remove-sudo-password-prompt
 
-###  9.take snapshot: name: cuckooC1s
+###  9. Take snapshot: name: cuckooC1s
 ``` shell
 $ VBoxManage snapshot "cuckooC1" take "cuckooC1s" --pause
 $ VBoxManage controlvm "cuckooC1" poweroff
 $ VBoxManage snapshot "cuckooC1" restorecurrent
 ```
 
-###  10.update in HOST MACHINE: virtualbox.conf
+###  10. Ppdate in HOST MACHINE: virtualbox.conf
 ``` shell
 [cuckoo1]
 # Specify the label name of the current machine as specified in your
