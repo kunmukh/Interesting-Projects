@@ -68,7 +68,7 @@ $ VBoxManage controlvm "cuckooC1" poweroff
 $ VBoxManage snapshot "cuckooC1" restorecurrent
 ```
 
-###  10. Ppdate in HOST MACHINE: virtualbox.conf
+###  10. Update in HOST MACHINE: virtualbox.conf
 ``` shell
 [cuckoo1]
 # Specify the label name of the current machine as specified in your
