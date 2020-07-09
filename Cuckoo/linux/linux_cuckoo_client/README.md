@@ -1,10 +1,10 @@
 # Linux Cuckoo Client Set Up Instructions
 
-### 1.Install Ubuntu 18.04
+### 1.Install Ubuntu 18.04 in Guest VM (VirtualBox)
       * name: cuckooC1	
       * username: cuckooc1
       * password: cuckooc
-      * automatic log in
+      * set up automatic log in
 
 ### 2. Fix DNS: 
 * edit /etc/resolv.conf and add line `nameserver 8.8.8.8`
