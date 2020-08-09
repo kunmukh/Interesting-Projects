@@ -331,13 +331,13 @@ def main():
     updateCOVIDdataset()
 
     # COVID Dataset changed the data location and format
-    # starting date changed to 3/23/20-> 4/15/20->4/25/20->5/18/20->6/14/20
-    startDateDaily = datetime(2020, 5, 18)
+    # starting date changed to 3/23/20-> 4/15/20->4/25/20->5/18/20->6/14/20->8/9/20
+    startDateDaily = datetime(2020, 6, 14)
     stopDateDaily = datetime.today() - timedelta(days=2)
     drawMapFromDate(startDateDaily, stopDateDaily)
 
     # uncomment if you want to create and save today's COVID MAP
-    # drawTodayMap()
+    drawTodayMap()
 
     # show the latest map
     showLatestMap()
