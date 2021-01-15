@@ -122,6 +122,41 @@ check_system_event(X,Y):-trusted_system_process_file_relation(X,Y)->message_trus
 check_system_event(X,Y):-trusted_system_process_network_relation(X,Y)->message_trusted_socket; message_network_misuse; message_old_browser.
 ```
 
+##  query and output
+
+```
+?- check_system_event("apt-get", "apt-get").
+
+Trusted process is in a relation with a trusted process
+false.
+
+?- check_system_event("apt-get", "yy.dat").
+
+Trusted process is in a relation with a file
+false.
+
+?- check_system_event("apt-get", "192.x.x.x").
+
+Trusted process is in a relation with a trusted socket
+false.
+
+?- check_system_event("apt-get", "bash").
+Unknown process found!
+use patch KB4462137
+use patch KB4474419
+false.
+
+?- check_system_event("apt-get", "241.x.x.x").
+Network interface needs to be closed down!
+Update your browser!
+false.
+
+?- check_system_event("curl", "t1.txt").
+Unauthorized file access!
+use patch KB4508433
+false.
+```
+
 ## Challenges we ran into
 * there are lot of entities and relationships in a system. And defining the rules for them will take a long time. So, we used ground truth to select a sub-set of entities and relations, so that we can build a robust and working solution
 * how to define good rules based on established ground truth as well as trying to stay away from circular logic
