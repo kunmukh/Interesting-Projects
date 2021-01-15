@@ -1,17 +1,51 @@
 ## Inspiration
 
-**Traditional defenses** such as _signature-based_ and _network-based_ **FAIL** against stealthy attacks such as **zero-day vulnerability** and **malware mutants**. Recent methods of stealthy  attacks happen by **impersonating or abusing well-trusted programs**, where the malicious behavior is blended with benign behaviors of the targeted program. Signature based defense fail because they have not seen the source code/activity signature before for the zero day attacks and malware mutants. Network based defense fails because firewall and intrusion detection system do not guard well trusted programs as well as user specified exceptions. 
+**Traditional defenses** such as _signature-based_ and _network-based_ **FAIL** against stealthy attacks such as **zero-day vulnerability** and **malware mutants**. Recent methods of stealthy  attacks happen by **impersonating or abusing well-trusted programs**, where the malicious behavior is blended with benign behaviors of the targeted program. Signature based defenses fail because they have not seen the source code/activity signature before for the zero day attacks and malware mutants. Network based defense fails because firewall and intrusion detection system do not guard well trusted programs as well as user specified exceptions. 
 
-Current on-going work is using an ML technique called **auto-encoders based anomaly detection**. They are first training a model with benign system activity. And then using it to classify system activities with the goal that regular process that have been hijacked by malware will show abnormal system activity that can be identified. There are **three BIG issues** with the ML based threat detection approach that was highlighted by Dr. Gupta during his talk as well, first, the training takes an **huge amount of time as well as resources** and second, the **false positive rates** is moderately high. Thus, a human has to be looped into the deployment pipeline so that they can monitor and release benign processes. The third problem and the most critical issue is that ML based detection is a black-box methodology and we get **no justification** as to why a system event was classified as malicious. But, they can be easily solved it we have some on-ground intelligence as well as using ASP and common sense reasoning. On ground intelligence is well established, and for this project I am using the s(CASP) system to replace the auto-encoder and human intelligence. So, that rather than making a statical decision, we are making a common sense reasoning based decision that has the ability to provide justification. Since, we can get a **justification** as to why some event was classified as benign or malicious, we can **recommend available patches and actions** that the human can take, and if the justification is wrong they can **grant exceptions or modify a rule**. 
+Current on-going work is using an ML technique called **auto-encoders based anomaly detection**. They are first training a model with benign system activity and then uses it to classify system activities with the goal that regular process that have been hijacked by malware will show abnormal system activity that can be identified. There are **three BIG issues** with the ML based threat detection approach that was highlighted by Dr. Gupta during his talk as well, first, the training takes an **huge amount of time as well as resources** and second, the **false positive rates** is moderately high. Thus, a human has to be looped into the deployment pipeline so that they can monitor and release benign processes. 
 
-**The project goal is that that by using our system RESTD the user in an unfortunate scenario of zero day or new malware mutant attack detection, they will be well RESTED as they will have the justification as to why the event was classified as a threat and will have a list of recommended patches and actions available to them for mitigation.**
+The third problem and the most critical issue is that ML based detection is a black-box methodology and we get **no justification** as to why a system event was classified as malicious. Since, we get no justification we **cannot** recommend an action: to patch the vulnerability or to mitigate the threat. Also, we have to rely on the human intelligence to decipher why the system event was marked as malicious and in a false positive scenario, either we will have to tune an hyperparameter or re-train the model. In either case, we are **demanding huge time, energy and resources** in terms of processing power, memory, money and additional human intelligence from a different domain (ML). 
+
+**Security domain specific aspect** regarding the third problem  is that when one vulnerability is detected, there is a possibility that there exists **another or multiple similar kind of vulnerability** that is already being or can be **exploited**. Since, we get no justification regarding the detection a security researcher has to **manually hunt them down** and patch it. Even then, there is **no guarantee** that he has tracked down all the similar vulnerability.
+
+But, they can be easily solved if we have some on-ground intelligence as well as using ASP and common sense reasoning. On ground intelligence is well established, and for this project I am using the s(CASP) system to replace the auto-encoder and human intelligence. So, that rather than making a statical decision, we are making a common sense reasoning based decision that has the ability to provide justification. Since, we can get a **justification** as to why some event was classified as benign or malicious, we can **recommend available patches and actions** that the human can take, and if the justification is wrong they can simply **grant exceptions or modify a rule**. Since, there is no need to re-train a NN model(Auto-encoder), they are **saving huge amount of time, energy, and resources (such as money and human intelligence)**. 
+
+**The project goal is that that by using our system RESTD the user in an unfortunate scenario of zero day or new malware mutant attack detection, they will be well RESTED as they will have the justification as to why the event was classified as a threat and will have a list of recommended patches and actions available to them for mitigation. Since, a justification is provided, the job of finding similar vulnerabilities is made simpler and a patch can be added to all of them. Thus, we are stopping future exploits and making the system secure and robust.**
 
 ## What it does
+
+A system event is made up of **system entities** and its corresponding **relation**, which is interactions with other entities. A chain of system events is known as a **causal path**. Causal path can be used detected if the path is benign or anomalous and using the causal path, we can find the malicious processes. Because of time constraint, we selected only 3 types of system entities: **processes, files, and socket(network connection)**. Each system entity has a relation with other entities. Again due to time constraint, I selected a subset of relation between entities. The **system entity and relations** we considered are:
+
+* Process - Process: start, end
+* Process - File: read, write and execute
+* Process - Socket: read, write
+
+Example of **correctly** detected **benign** system causal path by both RESTD and Auto-encoder:
+```
+winword.exe -writes-> t1.txt -read-> outlook.exe -write-> 168.x.x.x
+winword.exe -writes-> f1.doc
+```
+
+Example of **correctly** detected **malicious** system causal path both RESTD and Auto-encoder:
+```
+winword.exe -start-> cmd.exe -start-> powershell.exe -write-> x.x.x.x
+winword.exe -writes-> f2.doc
+```
+
+
+Example of **incorrectly** detected **malicious** system causal path by Auto-encoder, but **correctly** detected **malicious** system causal path by RESTD:
+```
+apt-get -start-> bash -start-> wget -read-> 192.x.x.x -write-> /tmp/yy.dat
+apt-get -start-> bash -execute-> /tmp/yy.dat
+```
+The **auto-encoder** will detect the above causal path as **malicious** as `apt-get` shows the typical behavior of a malicious executable as it is connecting to a command&control center, downloading a payload and executing it: `"apt-get starts bash to get a payload from 192.x.x.x and then execute it"`. But, using two ground truth `apt-get is one of the most trusted and secure process` and `192.x.x.x is a trusted linux domain` as well as using common sense reasoning makes it clear that it is a **benign** a system event: `"(secure process) apt-get starts bash to get a payload from  a (trusted domain) 192.x.x.x and then execute it"`.
+
+Security domain (https://www.sans.org/security-resources/malwarefaq) has some well defined ground truth regarding what kinds of domain and processes are considered secure and what programs have been previously utilized to exploit a system. RESTD program used the **domain specific ground truth** to define **facts and rules** that would be used to detect if a system event is benign or malicious. Security domain also has some universally accepted recommendations and endorsed patches and actions (https://linuxhint.com/linux_malware_analysis/) in case of an attack, because we will get **justification** in **RESTD** we will **recommend an patch and/or action based on the on-ground threat mitigation recommendation as well as reasoning behind the given recommendation**; something that an auto-encoder based detection cannot provide without using other intelligent system or human in the loop.
 
 ## How we built it
 
 ## Challenges we ran into
-* there are lot if entities and relationships in a system. And defining the rules for them will take a long time. So, we used ground truth to select a sub-set of entities and relations, so that we can build a robust and working solution
+* there are lot of entities and relationships in a system. And defining the rules for them will take a long time. So, we used ground truth to select a sub-set of entities and relations, so that we can build a robust and working solution
 * how to define good rules based on established ground truth as well as trying to stay away from circular logic
 * how to define rules that have priority, so that one rule supersedes another
 * implementing the rules that can be used for detection, so that an ML technique auto-encoder can be replaced
