@@ -1,6 +1,9 @@
 # RESTD - Reasoning Engine for Smart Threat Detection
 ## created by- RSTDED
 
+* devpost: https://devpost.com/software/restd-reasoning-engine-for-smart-threat-detection
+* youtube: https://youtu.be/j_2iHtVCTio
+
 ## Member of RSTDED:Reason based Smart Threat Detection Engine Developers
 
 * Kunal Mukherjee
