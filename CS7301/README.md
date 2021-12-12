@@ -8,6 +8,8 @@
 
 - Pre-trained Model: [models](models)
 
+- Demo: [demo](demo)
+
 ## INTRODUCTION
 
 Signature-based and network-based fail miserable against stealthy attacks such as **zero-day vulnerability**, **malware mutants** and **advanced persistent threats (APTs) attacks**. Simple machine Learning based detectors such as SVM, PCA, ensemble methods such as bagging/boosting and **local outlier factor(LOF)** have been used to detect these advanced threats but they have also been defeated by specifically crafted APTs. Current and on-going work has been using two prominent ML technique called **Variational Auto Encoders(VAE)** and Graph Neural Network(GNN) based anomaly detection.
