@@ -78,6 +78,10 @@ Using the F1 scores in Figure 4 and Figure 5, we can list the APT attack stages 
 
 <img src="./assets/result-2.png" alt="F1 score for APT attack stage with gadget detection"   width="400"/>
 
+## Conclusion
+
+We presented a novel adversarial attack generation framework that **autonomously synthesizes stealthy attack vectors** to evade ML based security solutions. Our analysis draws important insights of ML-based detection metrics with regards to APT attacks showing the **evasiveness** of each step in the attack. This insight can be used to **strengthen security defenses**.
+
 # Citation
 
 ```
