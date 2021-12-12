@@ -13,7 +13,7 @@
 ## INTRODUCTION
 
 ### ML BASED DETECTION FRAMEWORK
-<img src="./assets/ml-detection-workflow.png" alt=": Detection workflow of ML based detector"   width="500"/>
+<img src="./assets/ml-detection-workflow.png" alt=": Detection workflow of ML based detector"   width="700"/>
 
 ## MOTIVATIONAL APT ATTACK STUDY
 
