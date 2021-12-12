@@ -37,10 +37,10 @@
 ## EVALUATION
 
 ### Detection Accuracy
-<img src="./assets/result-1.png" alt=": ML-based behavior models’ (LOF and autoencoder) detection results for APT attack and APT attack with gadget"   width="500"/>
+<img src="./assets/result-1.png" alt=": ML-based behavior models’ (LOF and autoencoder) detection results for APT attack and APT attack with gadget"   width="400"/>
 
 ### Degree of Evasiveness for APT Stages
-<img src="./assets/result-2.png" alt="F1 score for APT attack stage with gadget detection"   width="500"/>
+<img src="./assets/result-2.png" alt="F1 score for APT attack stage with gadget detection"   width="400"/>
 
 ## GENERALIZATION & USEFULLNESS
 
