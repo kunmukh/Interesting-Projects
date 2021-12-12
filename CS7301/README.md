@@ -36,6 +36,8 @@ After launching a privileged shell, the attacker conducts a *network scan* to fi
 ### GADGET FINIDING & RANKING
 The **regularity score** of a system event shows the probability of a specific system event occurring. If event 𝑒 has never occurred in the system, then the value of 𝑅(𝑒) is 0 indicating that 𝑒 is a rare system event. Therefore, the regularity score of a causal path 𝜆 is dependent on the regulatory score of its constituent system events, {𝑒1, 𝑒2,...,𝑒𝑛}. Thus, a causal path composed of many **rare** system event would have a **low regularity score**, resulting in a **higher probability** of detection.
 
+Gadgets are unique to the **specific behavioral profile** of a given system and directly depend on the actions of the native processes within. For this purpose, **common programs** with a high frequency in the target system along with common benign profiles make good candidates for gadgets. The **graph neural network(GNN)** is trained using **benign system** events that has the same frequency distribution as the victim, therefore the **gadget** the GNN would **recommend** will have a **high** frequency, therefore it will have a **high** regulatory score.
+
 <img src="./assets/gadget-rank.png" alt="APT attack stages using gadget chain and their regularity score"   width="800"/>
 
 ### GADGET APT ATTACK CREATION
