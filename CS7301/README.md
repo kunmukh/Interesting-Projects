@@ -8,7 +8,7 @@
 
 - Code: See [Doc2Vec](Doc2Vec), [AutoEncoder](AutoEncoder), [LOF](LOF), [Gadget](Gadget)
 
-- Pre-trained Model:
+- Pre-trained Model: [models](models)
 
 ## INTRODUCTION
 
