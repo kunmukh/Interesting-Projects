@@ -16,7 +16,7 @@
 <img src="./assets/ml-detection-workflow.png" alt=": Detection workflow of ML based detector"   width="700"/>
 
 ## MOTIVATIONAL APT ATTACK STUDY
-<img src="./assets/apt.png" alt="Provenance graph for APT attack vs APT with gadget"   width="700"/>
+<img src="./assets/apt.png" alt="Provenance graph for APT attack vs APT with gadget"   width="500"/>
 
 ## APPROACH
 
