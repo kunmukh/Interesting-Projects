@@ -2,9 +2,7 @@
 
 ## Resource
 
-- Paper:
-
-- Dataset for training/testing/validation:
+- Dataset for training/testing/validation: [OneDrive](https://cometmail-my.sharepoint.com/:f:/g/personal/kxm180046_utdallas_edu/EmMgTLBNH3FGkLG6klLzY3YB2v1e54WvTwvbpK_wAl46iw?e=rTwDyN)
 
 - Code: See [Doc2Vec](Doc2Vec), [AutoEncoder](AutoEncoder), [LOF](LOF), [Gadget](Gadget)
 
