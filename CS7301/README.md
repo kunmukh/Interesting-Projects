@@ -20,9 +20,11 @@
 
 ## APPROACH
 
-### GADGET FINIDING
+### GADGET FINIDING & RANKING
+<img src="./assets/gadget-rank.png" alt="APT attack stages using gadget chain and their regularity score"   width="700"/>
 
-### GADGET RANKING
+### GADGET APT ATTACK CREATION
+<img src="./assets/gadget-find.png" alt="Regularity Score calculation for causal paths for APT attack vs APT attack with gadgets"   width="700"/>
 
 ## DATASET
 
