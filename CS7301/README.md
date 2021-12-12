@@ -37,14 +37,14 @@ The Machine Learning framework for different models have different specifics but
 
 ### Benign Dataset
 
-We selected 30 system programs from our event database that are commonly used in APT campaigns also mentioned in previous studies such as ProvDetector. The provenance graphs generated from the benign system programs consisted of 4735.30 causal paths, 37.51 vertices and 45.78 edges on average (Table 3). The provenance graph generated from the benign user application consisted of 11779.36 causal paths, 90.36 vertices and 112.38 edges on average (Table 3).
+We selected **30 system programs** from our event database that are commonly used in APT campaigns also mentioned in previous studies such as *ProvDetector*. The provenance graphs generated from the benign system programs consisted of **4735.30 causal paths, 37.51 vertices and 45.78 edges** on average (Table 3). The provenance graph generated from the benign user application consisted of **11779.36 causal paths, 90.36 vertices and 112.38 edges** on average (Table 3).
 
 <img src="./assets/benign-data.png" alt="Number of vertex and edges used to create benign profile for system programs"   width="500"/>
 
 ### Malicious Dataset
-The anomaly dataset contains two datasets: APT attack campaign and APT attack campaign with gadget. The APT attack campaign with gadget consists of the APT attack that was conducted using the gadget mentioned in column events in APT Stages using Gadget Chain 1 Table 2.We used a malicious testbed to collect labeled datasets necessary for prediction tasks by running five different kinds of APT attack stages with and without gadgets. 
+The anomaly dataset contains two datasets: **APT attack campaign** and **APT attack campaign with gadget**. The APT attack campaign with gadget consists of the APT attack that was conducted using the gadget mentioned in column events in APT Stages using Gadget Chain 1 Table 2. We used a malicious testbed to collect labeled datasets necessary for prediction tasks by running **five different kinds of APT attack stages** with and without gadgets. 
 
-The provenance graphs for APT Kill Chain Scenario contains an average of 493.92 causal paths, 94.78 vertices and 97.48 edges. The provenance graphs for APT Kill Chain Scenario with Gadget has an average of 175.93 causal paths, 30.39 vertices and 29.50 edges.
+The provenance graphs for *APT Kill Chain Scenario* contains an average of **493.92 causal paths, 94.78 vertices and 97.48 edges**. The provenance graphs for *APT Kill Chain Scenario with Gadget* has an average of **175.93 causal paths, 30.39 vertices and 29.50 edges**.
 
 <img src="./assets/mal-data.png" alt="Number of vertex and edges used to create malicious APT and gadget APT profile"   width="500"/>
 
