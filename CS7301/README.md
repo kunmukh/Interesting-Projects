@@ -34,9 +34,13 @@ After launching a privileged shell, the attacker conducts a *network scan* to fi
 ## APPROACH
 
 ### GADGET FINIDING & RANKING
+The **regularity score** of a system event shows the probability of a specific system event occurring. If event 𝑒 has never occurred in the system, then the value of 𝑅(𝑒) is 0 indicating that 𝑒 is a rare system event. Therefore, the regularity score of a causal path 𝜆 is dependent on the regulatory score of its constituent system events, {𝑒1, 𝑒2,...,𝑒𝑛}. Thus, a causal path composed of many **rare** system event would have a **low regularity score**, resulting in a **higher probability** of detection.
+
 <img src="./assets/gadget-rank.png" alt="APT attack stages using gadget chain and their regularity score"   width="800"/>
 
 ### GADGET APT ATTACK CREATION
+The purpose of AGE-GNN is to find system events with **high regularity scores** that can be used as gadgets to replace events in an attack with a lower regularity score. In this way, the overall regularity score of the entire attack path will **increase**, making it **harder** to detect as shown in Table 2. We formalize our problem statement as finding the top K popular system events with high regularity scores that can be used to replace rare paths in an APT attack.
+
 <img src="./assets/gadget-find.png" alt="Regularity Score calculation for causal paths for APT attack vs APT attack with gadgets"   width="500"/>
 
 ## DATASET
