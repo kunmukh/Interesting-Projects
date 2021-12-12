@@ -8,7 +8,7 @@
 
 - Code: See [Doc2Vec](Doc2Vec), [AutoEncoder](AutoEncoder), [LOF](LOF), [Gadget](Gadget)
 
-- Pretrained Model:
+- Pre-trained Model:
 
 ## INTRODUCTION
 
@@ -41,10 +41,6 @@
 
 ### Degree of Evasiveness for APT Stages
 <img src="./assets/result-2.png" alt="F1 score for APT attack stage with gadget detection"   width="400"/>
-
-## GENERALIZATION & USEFULLNESS
-
-## CONCLUSION
 
 # Citation
 
