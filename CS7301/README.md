@@ -51,9 +51,17 @@ The provenance graphs for *APT Kill Chain Scenario* contains an average of **493
 ## EVALUATION
 
 ### Detection Accuracy
+
+The detection accuracy of the APT attack stages by different MLbased behavioral analysis is measured in precision, recall, and F1 score. The autoencoder’s recall and F1 scores under APT Kill Chain Scenario range from 0.99 to 1.0 and 0.95 to 1.0, respectively. This means that the autoencoder is **extremely proficient in detecting anomalous causal paths**. The LOF model’s recall and F1 scores under APT Kill Chain Scenario range from 0.75 to 0.82 and 0.85 to 0.90 respectively. The relatively low recall and F1 scores compared to the autoencoder means that LOF **cannot** easily detect anomalous causal paths.
+
+The autoencoder’s recall and F1 scores range from 0.09 to 0.24 and 0.16 to 0.39 respectively against the APT Kill Chain with Gadget suggesting that the **detection capability of the autoencoder model was significantly decreased** when gadget was used. LOF’s recall and F1 scores range from 0.02 to 0.20 and 0.05 to 0.34, respectively which also suggest that the anomaly detection capability of LOF against APT Kill Chain with Gadget was decreased to a great extent when gadget was used.
+
 <img src="./assets/result-1.png" alt=": ML-based behavior models’ (LOF and autoencoder) detection results for APT attack and APT attack with gadget"   width="400"/>
 
 ### Degree of Evasiveness for APT Stages
+
+Using the F1 scores in Figure 4 and Figure 5, we can list the APT attack stages from *easiest to hardest* to detect: exfiltration, deepen access, establish a foothold, privilege escalation, and initial access.
+
 <img src="./assets/result-2.png" alt="F1 score for APT attack stage with gadget detection"   width="400"/>
 
 # Citation
