@@ -29,8 +29,10 @@
 ## DATASET
 
 ### Benign Dataset
+<img src="./assets/benign-data.png" alt="Number of vertex and edges used to create benign profile for system programs"   width="500"/>
 
 ### Malicious Dataset
+<img src="./assets/mal-data.png" alt="Number of vertex and edges used to create malicious APT and gadget APT profile"   width="500"/>
 
 ## EVALUATION
 
