@@ -1,10 +1,10 @@
 # Detection Result(Auto-Encoder)
 
 ### APT attack
-<img src="demo-autoencoder-anomaly.png" alt=""   width="700"/>
+<img src="demo-autoencoder-anomaly.png" alt=""   width="400"/>
 
 ### APT attack w/ gadget
-<img src="demo-autoencoder-gadget.png" alt=""   width="700"/>
+<img src="demo-autoencoder-gadget.png" alt=""   width="400"/>
 
 # Gadget
 ```commandline
